@@ -22,27 +22,13 @@
     }
  }
 // Recieves row and column and returns the distance to the nearest "edge" of the given rectangle as a string
- fn check_num(row_nr: u32, rows: u32, column_nr: u32, columns: u32) -> String{
-    let row_distance: u32;
-    let column_distance: u32;
-    if (rows - row_nr) < row_nr {
-        row_distance = rows - row_nr;
-    }
-    else {
-        row_distance = row_nr;
-    }
-    if (columns - column_nr) > column_nr {
-        column_distance = column_nr;
-    }
-    else {
-        column_distance = columns - column_nr;
+fn check_num(row_nr: u32, rows: u32, column_nr: u32, columns: u32) -> String{
+    let row_distance = cmp::min(rows - row_nr, row_nr);
+    let column_distance = cmp::min(columns - column_nr, column_nr);
+
+    match cmp::min(column_distance, row_distance) {
+        _x if _x >= 9 => ".".to_string(),
+        _x => (_x + 1).to_string()
     }
 
-    if cmp::min(column_distance, row_distance) >= 9 {
-        return ".".to_string();
-    }
-    else {
-        return (cmp::min(column_distance, row_distance)+1).to_string();
-    }
-    
  }
